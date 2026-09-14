@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Team 517 | Adaptive Regolith Compaction System</title>
+<meta name="description" content="FAMU-FSU College of Engineering Senior Design Team 517: an adaptive regolith compaction system for microwave-sintered lunar landing pads, sponsored by NASA Marshall Space Flight Center.">
+
+<!--
+==========================================================================
+  TEAM 517 WEBSITE — EDITING GUIDE
+==========================================================================
+  IMAGES: create a folder named "images" next to this file and drop in
+  files with these exact names. Until a file exists, a labeled
+  placeholder shows in its place.
+
+    images/hero-space.jpg           Top banner photo (see BANNER note below)
+    images/project-image.jpg        Home > Project debrief (NASA concept now, prototype later)
+    images/sponsor-blanchard.jpg    Home > Sponsors
+    images/sponsor-bland.jpg        Home > Sponsors
+    images/coe-banner.png           Home > Advisors (FAMU-FSU COE banner)
+    images/advisor-mcconomy.jpg     Home > Advisors
+    images/advisor-joseph.jpg       Home > Advisors
+    images/advisor-kunz.jpg         Home > Advisors
+    images/team-gabby-abate.jpg     Team page
+    images/team-carson-kelly.jpg    Team page
+    images/team-emilye-piperis.jpg  Team page
+    images/team-kolton-porter.jpg   Team page
+    images/team-dylan-ramos.jpg     Team page
+
+  BANNER: images/hero-space.jpg is the lunar eclipse sequence. It is resized
+  to 2800px wide and compressed to about 200 KB so the page loads fast. To
+  swap it, save a new photo over that same filename. If the new photo is not
+  dark on the left, the headline may get hard to read; adjust the opacity
+  values in .hero-photo::after to fix it. Delete the file and the banner
+  falls back to a drawn moon rather than breaking.
+
+  TEXT: search this file for "EDIT:" to find every spot meant to be updated.
+
+  PAGES: each page is a <main data-page="..."> block. Home is first,
+  then Results, Design, Team, and Downloads.
+==========================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --space:      #0A1230;   /* deep navy sky */
+    --space-2:    #16214D;   /* raised navy */
+    --dust:       #E4E6EA;   /* cool lunar-dust grey */
+    --dust-2:     #C9CDD6;   /* rules and borders on dust */
+    --paper:      #F4F5F7;   /* lightest surface */
+    --ink:        #0E1A3A;   /* body text on light */
+    --ink-soft:   #4A5470;   /* secondary text on light */
+    --garnet:     #782F40;   /* FSU garnet */
+    --gold:       #CEB888;   /* FSU gold */
+    --moonlight:  #EEEBE3;   /* text on dark */
+    --moon-soft:  #B7BBCB;   /* secondary text on dark */
+
+    --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: var(--body);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--dust);
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  h1, h2, h3 {
+    font-family: var(--display);
+    font-stretch: 112%;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--garnet); outline-offset: 3px; border-radius: 4px; }
+  .topbar :focus-visible, .hero :focus-visible, .section--navy :focus-visible, .footer :focus-visible { outline-color: var(--gold); }
+
+  .skip {
+    position: absolute; left: 12px; top: -60px; z-index: 100;
+    background: var(--gold); color: var(--space); padding: 10px 16px; border-radius: 999px;
+    font-weight: 600; text-decoration: none;
+  }
+  .skip:focus { top: 12px; }
+
+  .wrap { width: min(1160px, 100% - 48px); margin-inline: auto; }
+
+  /* ---------------- Top bar ---------------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(8, 13, 36, 0.86);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(206, 184, 136, 0.2);
+  }
+  .topbar-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px;
+  }
+  .brand {
+    justify-self: start;
+    color: #fff;
+    text-decoration: none;
+    font-family: var(--display);
+    font-stretch: 100%;
+    font-weight: 700;
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+  .brand:hover { color: var(--gold); }
+
+  .nav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); /* keeps Home dead-center */
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-side { display: flex; gap: 8px; }
+  .nav-side--left  { justify-content: flex-end; }
+  .nav-side--right { justify-content: flex-start; }
+
+  .pill {
+    display: inline-flex; align-items: center;
+    padding: 9px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(206, 184, 136, 0.38);
+    background: rgba(255, 255, 255, 0.04);
+    color: #E9E6DD;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9375rem;
+    line-height: 1;
+    white-space: nowrap;
+    transition: background-color .2s, color .2s, border-color .2s;
+  }
+  .pill:hover { background: rgba(206, 184, 136, 0.15); border-color: rgba(206, 184, 136, 0.75); }
+  .pill[aria-current="page"] {
+    background: var(--gold); color: var(--space); border-color: var(--gold); font-weight: 600;
+  }
+  .pill--home { padding-inline: 26px; }
+
+  /* ---------------- Hero banner ---------------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    color: var(--moonlight);
+    background: radial-gradient(ellipse at 78% 45%, #1B2759 0%, #0A1230 52%, #050918 100%);
+  }
+  #stars { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; }
+
+  /* Photograph layer. Sits above the drawn sky, so it takes over the moment
+     images/hero-space.jpg exists. Change the file path here if you rename it. */
+  .hero-photo {
+    position: absolute; inset: 0; z-index: -1;
+    background-image: url("images/hero-space.jpg");
+    background-size: cover;
+    background-position: center 48%;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity .9s ease;
+  }
+  .hero.has-photo { background: #030509; }
+  .hero.has-photo .hero-photo { opacity: 1; }
+  .hero.has-photo .moon, .hero.has-photo #stars { display: none; }
+
+  /* Keeps banner text readable over the photograph. The left-to-right fade
+     mutes the bright full moon behind the headline and leaves the eclipsed
+     moons on the right at full strength. */
+  .hero-photo::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(100deg, rgba(3, 5, 9, 0.92) 0%, rgba(3, 5, 9, 0.8) 30%, rgba(3, 5, 9, 0.34) 58%, rgba(3, 5, 9, 0) 82%),
+      linear-gradient(to top, rgba(3, 5, 9, 0.8), rgba(3, 5, 9, 0) 40%);
+  }
+
+  /* On narrow screens a full-width crop shrinks the moons to nothing, so
+     frame the two eclipsed ones instead. */
+  @media (max-width: 760px) {
+    .hero-photo { background-position: 66% 46%; }
+    .hero-photo::after {
+      background: linear-gradient(to top, rgba(3, 5, 9, 0.94) 0%, rgba(3, 5, 9, 0.8) 38%, rgba(3, 5, 9, 0.35) 72%, rgba(3, 5, 9, 0.15) 100%);
+    }
+  }
+
+  .moon {
+    position: absolute; z-index: -1;
+    top: 50%; right: -7vw;
+    width: min(80vh, 58vw);
+    aspect-ratio: 1;
+    transform: translateY(-50%);
+    animation: moonrise 1.6s cubic-bezier(.2,.7,.2,1) both;
+  }
+  @keyframes moonrise {
+    from { opacity: 0; transform: translateY(-44%); }
+    to   { opacity: 1; transform: translateY(-50%); }
+  }
+
+  .hero-inner {
+    min-height: calc(88vh - 64px);
+    display: flex; flex-direction: column; justify-content: center;
+    padding-block: 96px 80px;
+  }
+  body:not([data-page="home"]) .hero-inner { min-height: 0; padding-block: 88px 72px; }
+  body:not([data-page="home"]) .moon { width: min(60vh, 40vw); right: 3vw; }
+
+  .hero-title {
+    font-size: clamp(2.6rem, 6.2vw, 5.2rem);
+    font-weight: 760;
+    font-stretch: 118%;
+    line-height: 0.98;
+    max-width: 13ch;
+  }
+  .hero-sub {
+    margin: 22px 0 0;
+    font-size: clamp(1.125rem, 1.9vw, 1.4rem);
+    color: #D3CFC4;
+    max-width: 34ch;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 12px 28px;
+    margin: 40px 0 0; padding: 0; list-style: none;
+    font-size: 0.975rem; color: var(--moon-soft);
+  }
+  .hero-meta li { padding-left: 14px; border-left: 2px solid var(--gold); }
+  .hero-meta strong { color: var(--moonlight); font-weight: 600; }
+
+  .hero-page .hero-title { max-width: none; }
+  .hero-page .hero-sub { max-width: 44ch; }
+
+  /* ---------------- Sections ---------------- */
+  .section { padding-block: clamp(64px, 9vw, 112px); }
+  .section--navy  { background: var(--space); color: var(--moonlight); }
+  .section--paper { background: var(--paper); }
+
+  .section-head { max-width: 62ch; margin-bottom: 48px; }
+  .section-head::before {
+    content: ""; display: block; width: 40px; height: 3px;
+    background: var(--garnet); margin-bottom: 20px;
+  }
+  .section--navy .section-head::before { background: var(--gold); }
+  .section-head h2 { font-size: clamp(1.9rem, 3.6vw, 2.8rem); font-weight: 720; }
+  .section-head p { margin: 14px 0 0; font-size: 1.125rem; color: var(--ink-soft); }
+  .section--navy .section-head p { color: var(--moon-soft); }
+
+  /* Image slots: show a hatched placeholder until the image file exists */
+  .slot {
+    position: relative; overflow: hidden;
+    background-color: #D6D9E0;
+    background-image: repeating-linear-gradient(45deg, rgba(14, 26, 58, 0.09) 0 1px, transparent 1px 10px);
+  }
+  .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .slot-label {
+    position: absolute; inset: 0;
+    display: none; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+    padding: 16px; text-align: center;
+    font-size: 0.875rem; line-height: 1.4; color: var(--ink-soft);
+  }
+  .slot-label code { font-size: 0.8125rem; background: rgba(255,255,255,.55); padding: 2px 6px; border-radius: 4px; }
+  .slot.is-empty img { display: none; }
+  .slot.is-empty .slot-label { display: flex; }
+
+  .section--navy .slot {
+    background-color: var(--space-2);
+    background-image: repeating-linear-gradient(45deg, rgba(206, 184, 136, 0.13) 0 1px, transparent 1px 10px);
+  }
+  .section--navy .slot-label { color: var(--moon-soft); }
+  .section--navy .slot-label code { background: rgba(255,255,255,.08); }
+
+  /* Project debrief: summary and key facts side by side, figure full width
+     underneath. The figure is a dense multi-panel diagram, so it needs the
+     whole column width to stay legible. */
+  .debrief {
+    display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(210px, 1fr);
+    gap: clamp(32px, 5vw, 64px); align-items: start;
+    margin-bottom: clamp(40px, 5vw, 64px);
+  }
+  .prose p { margin: 0 0 1em; max-width: 62ch; }
+  .facts {
+    display: grid; grid-template-columns: 1fr; gap: 0;
+    margin: 0; border-top: 1px solid var(--dust-2);
+  }
+  .facts div { padding: 14px 0; border-bottom: 1px solid var(--dust-2); }
+  .facts dt { font-size: 0.875rem; color: var(--ink-soft); }
+  .facts dd { margin: 2px 0 0; font-weight: 600; line-height: 1.4; }
+
+  /* Viewfinder-style corner marks around the main figure */
+  .frame {
+    padding: 14px;
+    background:
+      linear-gradient(var(--ink), var(--ink)) top left    / 22px 2px no-repeat,
+      linear-gradient(var(--ink), var(--ink)) top left    / 2px 22px no-repeat,
+      linear-gradient(var(--ink), var(--ink)) top right   / 22px 2px no-repeat,
+      linear-gradient(var(--ink), var(--ink)) top right   / 2px 22px no-repeat,
+      linear-gradient(var(--ink), var(--ink)) bottom left / 22px 2px no-repeat,
+      linear-gradient(var(--ink), var(--ink)) bottom left / 2px 22px no-repeat,
+      linear-gradient(var(--ink), var(--ink)) bottom right/ 22px 2px no-repeat,
+      linear-gradient(var(--ink), var(--ink)) bottom right/ 2px 22px no-repeat;
+  }
+  .frame .slot { aspect-ratio: 4 / 3; }
+  .figure { margin: 0; }
+  .figure figcaption { margin-top: 12px; font-size: 0.9rem; color: var(--ink-soft); }
+
+  /* Wide figure: the slot matches the file's own proportions (1586 x 886) and
+     the image is contained rather than cropped, so nothing is cut off.
+     If you swap in a differently shaped image, update the ratio to match. */
+  .figure--wide .frame .slot {
+    aspect-ratio: 1586 / 886;
+    background-color: #fff;
+    background-image: none;
+  }
+  .figure--wide .frame .slot img { object-fit: contain; }
+  .figure--wide .zoom { display: block; text-decoration: none; }
+  .figure--wide .zoom:hover .frame { background-color: transparent; }
+  .figure--wide figcaption {
+    display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between;
+  }
+  .figure--wide figcaption span { max-width: 78ch; }
+  .figure--wide figcaption a { color: var(--garnet); font-weight: 600; }
+
+  /* People (sponsors + advisors) */
+  .people { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: clamp(24px, 3vw, 36px); }
+  .person .slot { aspect-ratio: 4 / 5; border-radius: 10px; }
+  .initials {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font-family: var(--display); font-stretch: 125%; font-weight: 700; font-size: 3.4rem;
+    color: rgba(14, 26, 58, 0.25);
+  }
+  .section--navy .initials { color: rgba(206, 184, 136, 0.42); }
+  .person .slot-label { justify-content: flex-end; padding-bottom: 14px; }
+  .person h3 { margin-top: 18px; font-size: 1.2rem; font-stretch: 104%; font-weight: 650; }
+  .person p { margin: 4px 0 0; color: var(--ink-soft); }
+  .section--navy .person p { color: var(--moon-soft); }
+
+  /* Sponsors */
+  .sponsors {
+    display: grid; grid-template-columns: minmax(240px, 1fr) 2fr;
+    gap: clamp(32px, 5vw, 72px); align-items: start;
+  }
+  .org { border-left: 2px solid var(--gold); padding-left: 24px; }
+  .logo-slot { width: 132px; aspect-ratio: 6 / 5; border-radius: 4px; margin-bottom: 24px; }
+  .logo-slot img { object-fit: contain; }
+  .logo-slot:not(.is-empty) { background: none; }
+  .org h3 { font-size: 1.5rem; font-weight: 700; }
+  .org p { margin: 8px 0 0; color: var(--moon-soft); max-width: 36ch; }
+  .org .org-place { color: var(--gold); margin-top: 6px; }
+
+  /* Advisors */
+  /* Matches the banner PNG's own proportions (800 x 124), so there are no
+     bars above and below the artwork. If you swap in a banner with different
+     proportions, update this ratio to match it. */
+  .banner-slot { aspect-ratio: 800 / 124; max-width: 760px; border-radius: 6px; margin-bottom: 56px; }
+  .banner-slot.is-empty { aspect-ratio: 5 / 1; min-height: 110px; }
+  .banner-slot img { object-fit: contain; }
+  /* No fill behind the banner: the PNG's own background already matches the
+     page, so a white panel here would show as a rectangle around it. */
+  .banner-slot:not(.is-empty) { background: none; }
+
+  /* Roadmap */
+  .roadmap {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px;
+    position: relative;
+  }
+  .roadmap::before {
+    content: ""; position: absolute; left: 23px; right: 0; top: 22px; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--garnet));
+  }
+  .milestone { position: relative; padding-top: 68px; }
+  .node {
+    position: absolute; top: 0; left: 0;
+    width: 46px; height: 46px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--paper); border: 2px solid var(--ink); color: var(--ink);
+    font-family: var(--display); font-weight: 700; font-size: 1.05rem;
+  }
+  .milestone[data-status="in-progress"] .node { background: var(--gold); border-color: var(--gold); }
+  .milestone[data-status="complete"]    .node { background: var(--ink); color: var(--gold); }
+  .milestone-date { font-size: 0.875rem; color: var(--ink-soft); }
+  .milestone h3 { margin-top: 4px; font-size: 1.15rem; font-stretch: 104%; font-weight: 650; }
+  .milestone p { margin: 8px 0 0; font-size: 0.95rem; color: var(--ink-soft); }
+  .status {
+    display: inline-block; margin-top: 14px; padding: 4px 12px; border-radius: 999px;
+    font-size: 0.8125rem; font-weight: 600; border: 1px solid var(--dust-2); color: var(--ink-soft);
+  }
+  .milestone[data-status="in-progress"] .status { border-color: var(--gold); background: rgba(206,184,136,.2); color: var(--ink); }
+  .milestone[data-status="complete"]    .status { border-color: var(--ink); background: var(--ink); color: var(--gold); }
+
+  .todo { border-bottom: 1px dashed currentColor; }
+
+  .plan-note { margin-top: 56px; padding: 24px 28px; border-left: 3px solid var(--garnet); background: #fff; max-width: 70ch; }
+  .plan-note h3 { font-size: 1.15rem; font-stretch: 104%; }
+  .plan-note p { margin: 8px 0 0; color: var(--ink-soft); }
+
+  /* ---------------- Portraits and team roster ---------------- */
+  .roster {
+    list-style: none; margin: 0; padding: 0;
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: clamp(20px, 2.6vw, 36px);
+  }
+  /* Five across is tight on mid-size screens, so drop to three then two. */
+  @media (max-width: 1080px) { .roster { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 700px)  { .roster { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px)  { .roster { grid-template-columns: 1fr; } }
+
+  .member { text-align: center; }
+
+  /* Beveled frame: a light top-left edge and a dark bottom-right edge give the
+     raised, machined look; the inset shadow presses the photo into it.
+     Used for every portrait on the site: sponsors, advisors, and the team. */
+  .portrait-frame {
+    position: relative;
+    padding: 7px;
+    border-radius: 16px;
+    background: linear-gradient(145deg, #FDFDFC 0%, #DFE1E7 38%, #A9AEBC 78%, #7E8494 100%);
+    box-shadow:
+      inset 1px 1px 0 rgba(255, 255, 255, 0.95),
+      inset -1px -1px 0 rgba(64, 71, 92, 0.4),
+      0 2px 3px rgba(14, 26, 58, 0.14),
+      0 10px 22px -10px rgba(14, 26, 58, 0.4);
+  }
+  .portrait-frame .slot {
+    aspect-ratio: 4 / 5;
+    border-radius: 10px;
+    box-shadow:
+      inset 0 2px 5px rgba(14, 26, 58, 0.35),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.5);
+  }
+  .portrait-frame .slot img { border-radius: 10px; }
+
+  /* Darker metal on the navy sponsors section, so the frames read as part of
+     that section instead of five bright rectangles punched out of it. */
+  .section--navy .portrait-frame {
+    background: linear-gradient(145deg, #6C7794 0%, #4A5474 40%, #2A3252 78%, #1B2240 100%);
+    box-shadow:
+      inset 1px 1px 0 rgba(214, 222, 246, 0.5),
+      inset -1px -1px 0 rgba(0, 0, 0, 0.55),
+      0 2px 4px rgba(0, 0, 0, 0.35),
+      0 12px 26px -12px rgba(0, 0, 0, 0.6);
+  }
+  .section--navy .portrait-frame .slot {
+    box-shadow:
+      inset 0 2px 6px rgba(0, 0, 0, 0.6),
+      inset 0 -1px 0 rgba(214, 222, 246, 0.18);
+  }
+
+  .member h3 {
+    margin: 20px 0 0;
+    font-size: 1.15rem; font-stretch: 104%; font-weight: 650;
+  }
+  .member .role {
+    margin: 5px 0 0;
+    font-size: 0.95rem; color: var(--ink-soft);
+  }
+
+  /* Blank pages */
+  .empty {
+    min-height: 300px; display: grid; place-items: center; text-align: center;
+    border: 2px dashed var(--dust-2); border-radius: 12px; padding: 48px 24px;
+    color: var(--ink-soft);
+  }
+  .empty p { margin: 0; max-width: 46ch; }
+
+  /* ---------------- Footer ---------------- */
+  .footer { background: #060A1E; color: var(--moon-soft); padding-block: 56px 32px; }
+  .footer-grid {
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 32px;
+    padding-bottom: 32px; border-bottom: 1px solid rgba(206, 184, 136, 0.2);
+  }
+  .footer-team {
+    margin: 0; font-family: var(--display); font-stretch: 118%; font-weight: 750;
+    font-size: clamp(1.8rem, 3.4vw, 2.4rem); color: var(--moonlight); line-height: 1;
+  }
+  .footer-dept { margin: 10px 0 0; }
+  .footer-contact { text-align: right; }
+  .footer-contact p { margin: 0; }
+  .footer-contact a { color: var(--gold); font-weight: 600; font-size: 1.125rem; text-decoration: none; }
+  .footer-contact a:hover { text-decoration: underline; }
+  .footer-base { padding-top: 20px; font-size: 0.875rem; }
+
+  /* ---------------- Responsive ---------------- */
+  @media (max-width: 960px) {
+    .topbar-inner { grid-template-columns: 1fr; justify-items: center; gap: 10px; padding: 10px 12px; }
+    .brand { justify-self: center; }
+    .nav { width: 100%; overflow-x: auto; scrollbar-width: none; }
+    .debrief, .sponsors { grid-template-columns: 1fr; }
+    .facts { border-top: 1px solid var(--dust-2); }
+    .moon { right: -18vw; width: 80vw; opacity: .55; top: 38%; }
+    body:not([data-page="home"]) .moon { width: 60vw; right: -12vw; }
+    .roadmap { grid-template-columns: 1fr; gap: 36px; }
+    .roadmap::before { left: 22px; right: auto; top: 23px; bottom: 0; width: 2px; height: auto;
+      background: linear-gradient(180deg, var(--gold), var(--garnet)); }
+    .milestone { padding-top: 6px; padding-left: 72px; }
+  }
+  @media (max-width: 520px) {
+    .wrap { width: min(1160px, 100% - 32px); }
+    .pill { padding: 8px 12px; font-size: 0.8125rem; }
+    .pill--home { padding-inline: 16px; }
+    .nav, .nav-side { gap: 5px; }
+    .facts { grid-template-columns: 1fr; }
+    .footer-contact { text-align: left; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+
+<body data-page="home">
+<a class="skip" href="#content">Skip to content</a>
+
+<!-- ======================= TOP BAR ======================= -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#home">FAMU-FSU College of Engineering</a>
+
+    <nav class="nav" aria-label="Main">
+      <div class="nav-side nav-side--left">
+        <a class="pill" href="#results" data-link="results">Results</a>
+        <a class="pill" href="#design" data-link="design">Design</a>
+      </div>
+      <a class="pill pill--home" href="#home" data-link="home">Home</a>
+      <div class="nav-side nav-side--right">
+        <a class="pill" href="#team" data-link="team">Team</a>
+        <a class="pill" href="#downloads" data-link="downloads">Downloads</a>
+      </div>
+    </nav>
+
+    <span aria-hidden="true"></span>
+  </div>
+</header>
+
+<!-- ======================= SPACE BANNER ======================= -->
+<section class="hero" aria-label="Project banner">
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="hero-photo" aria-hidden="true"></div>
+
+  <svg class="moon" viewBox="0 0 400 400" aria-hidden="true">
+    <defs>
+      <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0.6"  stop-color="#CFD6E8" stop-opacity="0.22"/>
+        <stop offset="0.78" stop-color="#9FAAC6" stop-opacity="0.07"/>
+        <stop offset="1"    stop-color="#9FAAC6" stop-opacity="0"/>
+      </radialGradient>
+
+      <!-- Sunlight falling from the upper left, with limb darkening at the edge -->
+      <radialGradient id="moonLight" cx="33%" cy="28%" r="88%">
+        <stop offset="0"    stop-color="#FBFAF6"/>
+        <stop offset="0.28" stop-color="#E6E3DA"/>
+        <stop offset="0.58" stop-color="#C4C0B6"/>
+        <stop offset="0.82" stop-color="#98948B"/>
+        <stop offset="0.95" stop-color="#6E6B65"/>
+        <stop offset="1"    stop-color="#514F4B"/>
+      </radialGradient>
+
+      <!-- Fine regolith speckle over the whole disc -->
+      <filter id="regolith" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="517" result="grain"/>
+        <feColorMatrix in="grain" type="saturate" values="0" result="grey"/>
+        <feComponentTransfer in="grey" result="soften">
+          <feFuncA type="linear" slope="0.5" intercept="0"/>
+        </feComponentTransfer>
+        <feComposite in="soften" in2="SourceGraphic" operator="in"/>
+      </filter>
+
+      <!-- Larger mottling: the highland/mare variation across the surface -->
+      <filter id="mottle" x="0%" y="0%" width="100%" height="100%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.012 0.016" numOctaves="5" seed="29" result="n"/>
+        <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+        <feComponentTransfer in="g" result="s">
+          <feFuncA type="table" tableValues="0 0.55"/>
+        </feComponentTransfer>
+        <feComposite in="s" in2="SourceGraphic" operator="in"/>
+      </filter>
+
+      <!-- Craters: lit rim on the sun side, shadow pooled opposite -->
+      <radialGradient id="craterFloor" cx="62%" cy="64%" r="60%">
+        <stop offset="0"    stop-color="#5F5C57" stop-opacity="0.75"/>
+        <stop offset="0.55" stop-color="#7E7A73" stop-opacity="0.45"/>
+        <stop offset="1"    stop-color="#8C8880" stop-opacity="0.05"/>
+      </radialGradient>
+      <linearGradient id="craterRim" x1="0.15" y1="0.1" x2="0.85" y2="0.92">
+        <stop offset="0"    stop-color="#FFFDF7" stop-opacity="0.85"/>
+        <stop offset="0.45" stop-color="#FFFDF7" stop-opacity="0.08"/>
+        <stop offset="0.6"  stop-color="#3A3834" stop-opacity="0.12"/>
+        <stop offset="1"    stop-color="#3A3834" stop-opacity="0.6"/>
+      </linearGradient>
+      <radialGradient id="ejecta" cx="50%" cy="50%" r="50%">
+        <stop offset="0.45" stop-color="#FFFDF6" stop-opacity="0.3"/>
+        <stop offset="1"    stop-color="#FFFDF6" stop-opacity="0"/>
+      </radialGradient>
+
+      <!-- Night side of the terminator -->
+      <linearGradient id="terminator" x1="0.05" y1="0" x2="1" y2="0.42">
+        <stop offset="0.34" stop-color="#04060F" stop-opacity="0"/>
+        <stop offset="0.62" stop-color="#04060F" stop-opacity="0.34"/>
+        <stop offset="0.84" stop-color="#04060F" stop-opacity="0.76"/>
+        <stop offset="1"    stop-color="#04060F" stop-opacity="0.97"/>
+      </linearGradient>
+
+      <filter id="blurLarge" x="-25%" y="-25%" width="150%" height="150%">
+        <feGaussianBlur stdDeviation="9"/>
+      </filter>
+      <filter id="blurSmall" x="-40%" y="-40%" width="180%" height="180%">
+        <feGaussianBlur stdDeviation="2.2"/>
+      </filter>
+      <clipPath id="moonClip"><circle cx="200" cy="200" r="160"/></clipPath>
+    </defs>
+
+    <circle cx="200" cy="200" r="215" fill="url(#moonGlow)"/>
+    <circle cx="200" cy="200" r="160" fill="url(#moonLight)"/>
+
+    <g clip-path="url(#moonClip)">
+      <!-- Maria: the dark basalt plains -->
+      <g filter="url(#blurLarge)" fill="#6C6962" opacity="0.4">
+        <ellipse cx="152" cy="134" rx="54" ry="38" transform="rotate(-12 152 134)"/>
+        <ellipse cx="212" cy="106" rx="34" ry="25"/>
+        <ellipse cx="112" cy="212" rx="40" ry="60" transform="rotate(-22 112 212)"/>
+        <ellipse cx="238" cy="182" rx="40" ry="28" transform="rotate(14 238 182)"/>
+        <ellipse cx="186" cy="258" rx="30" ry="20"/>
+        <ellipse cx="96"  cy="128" rx="24" ry="18"/>
+      </g>
+
+      <!-- Surface variation and grain -->
+      <circle cx="200" cy="200" r="160" fill="#6F6C66" opacity="0.5" filter="url(#mottle)"/>
+      <circle cx="200" cy="200" r="160" fill="#F7F4EC" opacity="0.16" filter="url(#regolith)"/>
+
+      <!-- Bright ejecta rays from the two big young craters -->
+      <circle cx="236" cy="300" r="62" fill="url(#ejecta)"/>
+      <circle cx="286" cy="148" r="40" fill="url(#ejecta)"/>
+
+      <!-- Craters -->
+      <g>
+        <g transform="translate(236 300)">
+          <circle r="18" fill="url(#craterFloor)"/>
+          <circle r="18" fill="url(#craterRim)" opacity="0.8"/>
+          <circle r="18" fill="none" stroke="#FFFDF6" stroke-opacity="0.22" stroke-width="1.4"/>
+        </g>
+        <g transform="translate(286 148)">
+          <circle r="13" fill="url(#craterFloor)"/>
+          <circle r="13" fill="url(#craterRim)" opacity="0.75"/>
+        </g>
+        <g transform="translate(110 128)">
+          <circle r="10" fill="url(#craterFloor)"/>
+          <circle r="10" fill="url(#craterRim)" opacity="0.7"/>
+        </g>
+        <g transform="translate(300 240)">
+          <circle r="9" fill="url(#craterFloor)"/>
+          <circle r="9" fill="url(#craterRim)" opacity="0.6"/>
+        </g>
+        <g transform="translate(166 314)">
+          <circle r="8" fill="url(#craterFloor)"/>
+          <circle r="8" fill="url(#craterRim)" opacity="0.6"/>
+        </g>
+        <g transform="translate(88 262)">
+          <circle r="7" fill="url(#craterFloor)"/>
+          <circle r="7" fill="url(#craterRim)" opacity="0.55"/>
+        </g>
+        <g transform="translate(256 92)">
+          <circle r="6" fill="url(#craterFloor)"/>
+          <circle r="6" fill="url(#craterRim)" opacity="0.55"/>
+        </g>
+        <g transform="translate(140 78)" filter="url(#blurSmall)">
+          <circle r="5" fill="url(#craterFloor)"/>
+        </g>
+        <g transform="translate(196 168)" filter="url(#blurSmall)">
+          <circle r="4.5" fill="url(#craterFloor)"/>
+        </g>
+        <g transform="translate(148 226)" filter="url(#blurSmall)">
+          <circle r="6" fill="url(#craterFloor)"/>
+        </g>
+        <g transform="translate(268 214)" filter="url(#blurSmall)">
+          <circle r="4" fill="url(#craterFloor)"/>
+        </g>
+        <g transform="translate(206 330)" filter="url(#blurSmall)">
+          <circle r="4.5" fill="url(#craterFloor)"/>
+        </g>
+      </g>
+
+      <circle cx="200" cy="200" r="160" fill="url(#terminator)"/>
+    </g>
+  </svg>
+
+  <div class="wrap hero-inner">
+    <!-- Home banner text -->
+    <div class="hero-home">
+      <h1 class="hero-title">Adaptive Regolith Compaction System</h1>
+      <p class="hero-sub">Preparing lunar regolith for microwave-sintered landing pads</p>
+      <ul class="hero-meta">
+        <li><strong>Senior Design Team 517</strong><br>FAMU-FSU College of Engineering</li>
+        <li><strong>Sponsored by NASA</strong><br>Marshall Space Flight Center</li>
+      </ul>
+    </div>
+
+    <!-- Banner text for the other pages (filled in by the script at the bottom) -->
+    <div class="hero-page" hidden>
+      <h1 class="hero-title" id="page-title">Results</h1>
+      <p class="hero-sub" id="page-sub"></p>
+    </div>
+  </div>
+</section>
+
+<div id="content">
+
+<!-- ======================= HOME ======================= -->
+<main data-page="home">
+
+  <!-- 1. PROJECT DEBRIEF -->
+  <section class="section" aria-labelledby="debrief-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="debrief-title">Project debrief</h2>
+      </div>
+
+      <div class="debrief">
+        <!-- EDIT: replace this summary with your own -->
+        <div class="prose">
+          <p>When a lander touches down on the Moon, its engine plume blasts loose regolith outward at high speed. Those abrasive particles can scour the lander and any hardware nearby. A hardened landing pad keeps the surface in place.</p>
+          <p>NASA Marshall Space Flight Center's MMPACT initiative is investigating microwave sintering to turn lunar regolith into durable landing pad surfaces. Before the regolith can be sintered, the surface needs to be prepared.</p>
+          <p>Team 517 is building an automated compaction tool for that step. It measures regolith hardness as it works and adjusts its vibration frequency in real time, so each area gets only the compaction energy it needs. The goal is to limit regolith abrasion and reduce wear on lander systems similar to HLS architectures.</p>
+        </div>
+        <dl class="facts">
+          <div><dt>Sponsor</dt><dd>NASA Marshall Space Flight Center</dd></div>
+          <div><dt>Initiative</dt><dd>MMPACT</dd></div>
+          <div><dt>Role in the workflow</dt><dd>Surface preparation before sintering</dd></div>
+          <div><dt>What's new</dt><dd>Closed-loop vibration control based on regolith hardness</dd></div>
+        </dl>
+      </div>
+
+      <!--
+        FIGURE
+        The slot is sized to the image's own proportions and the image is
+        contained, so the whole thing shows with nothing cropped. Clicking it
+        opens the full-resolution file in a new tab.
+        To swap the image: overwrite images/project-image.jpg, then update the
+        aspect-ratio in .figure--wide .frame .slot to match the new file.
+      -->
+      <figure class="figure figure--wide">
+        <a class="zoom" href="images/project-image.jpg" target="_blank" rel="noopener"
+           aria-label="Open the microwave sintering figure at full size">
+          <div class="frame">
+            <div class="slot">
+              <img src="images/project-image.jpg" alt="Two-part figure: microwave sintering process optimization, showing a furnace schematic, heating curves and sintered specimens; and homogeneity assessment, showing core sample locations and a porosity distribution plot." onerror="this.parentElement.classList.add('is-empty')">
+              <span class="slot-label">Add image<code>images/project-image.jpg</code></span>
+            </div>
+          </div>
+        </a>
+        <!-- EDIT: update the caption, and add the paper or source credit -->
+        <figcaption>
+          <span>Microwave sintering process optimization and homogeneity assessment. Sintered specimens vary with heating rate, dwell time and preheating; core samples show how porosity is distributed through the block.</span>
+          <a href="images/project-image.jpg" target="_blank" rel="noopener">View full size</a>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 2. PROJECT SPONSORS -->
+  <section class="section section--navy" aria-labelledby="sponsors-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="sponsors-title">Project sponsors</h2>
+        <p>This project is sponsored by NASA and supports lunar surface construction research at Marshall Space Flight Center.</p>
+      </div>
+
+      <div class="sponsors">
+        <div class="org">
+          <div class="slot logo-slot">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/NASA_logo.svg" alt="NASA logo" onerror="this.parentElement.classList.add('is-empty')">
+            <span class="slot-label">NASA logo</span>
+          </div>
+          <h3>Marshall Space Flight Center</h3>
+          <p class="org-place">Huntsville, Alabama</p>
+          <p>MSFC leads NASA's Moon to Mars Planetary Autonomous Construction Technology (MMPACT) project, which is developing ways to build lunar infrastructure from regolith.</p>
+        </div>
+
+        <div class="people">
+          <article class="person">
+            <div class="portrait-frame">
+              <div class="slot">
+                <span class="initials" aria-hidden="true">AB</span>
+                <img src="images/sponsor-blanchard.jpg" alt="Alexander Blanchard" onerror="this.parentElement.classList.add('is-empty')">
+                <span class="slot-label"><code>images/sponsor-blanchard.jpg</code></span>
+              </div>
+            </div>
+            <h3>Alexander Blanchard</h3>
+            <p>Job title <!-- EDIT --></p>
+            <p>NASA Marshall Space Flight Center</p>
+          </article>
+
+          <article class="person">
+            <div class="portrait-frame">
+              <div class="slot">
+                <span class="initials" aria-hidden="true">EB</span>
+                <img src="images/sponsor-bland.jpg" alt="Ebondy Bland" onerror="this.parentElement.classList.add('is-empty')">
+                <span class="slot-label"><code>images/sponsor-bland.jpg</code></span>
+              </div>
+            </div>
+            <h3>Ebondy Bland</h3> <!-- EDIT: confirm spelling -->
+            <p>Job title <!-- EDIT --></p>
+            <p>NASA Marshall Space Flight Center</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. PROJECT ADVISORS -->
+  <section class="section" aria-labelledby="advisors-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="advisors-title">Project advisors</h2>
+        <p>Faculty and staff guiding the team at the FAMU-FSU College of Engineering.</p>
+      </div>
+
+      <div class="slot banner-slot">
+        <img src="images/coe-banner.png" alt="FAMU-FSU College of Engineering" onerror="this.parentElement.classList.add('is-empty')">
+        <span class="slot-label">FAMU-FSU College of Engineering banner<code>images/coe-banner.png</code></span>
+      </div>
+
+      <div class="people">
+        <article class="person">
+          <div class="portrait-frame">
+            <div class="slot">
+              <span class="initials" aria-hidden="true">SM</span>
+              <img src="images/advisor-mcconomy.jpg" alt="Shayne McConomy" onerror="this.parentElement.classList.add('is-empty')">
+              <span class="slot-label"><code>images/advisor-mcconomy.jpg</code></span>
+            </div>
+          </div>
+          <h3>Shayne McConomy, Ph.D.</h3>
+          <p>Professor</p>
+        </article>
+
+        <article class="person">
+          <div class="portrait-frame">
+            <div class="slot">
+              <span class="initials" aria-hidden="true">TJ</span>
+              <img src="images/advisor-joseph.jpg" alt="Taylor Joseph" onerror="this.parentElement.classList.add('is-empty')">
+              <span class="slot-label"><code>images/advisor-joseph.jpg</code></span>
+            </div>
+          </div>
+          <h3>Taylor Joseph</h3>
+          <p>Job title <!-- EDIT --></p>
+        </article>
+
+        <article class="person">
+          <div class="portrait-frame">
+            <div class="slot">
+              <span class="initials" aria-hidden="true">RK</span>
+              <img src="images/advisor-kunz.jpg" alt="Ryan Kunz" onerror="this.parentElement.classList.add('is-empty')">
+              <span class="slot-label"><code>images/advisor-kunz.jpg</code></span>
+            </div>
+          </div>
+          <h3>Ryan Kunz</h3>
+          <p>Job title <!-- EDIT --></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. FUTURE WORK -->
+  <section class="section section--paper" aria-labelledby="future-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="future-title">Future work</h2>
+        <!-- EDIT: overview of upcoming work -->
+        <p>Where the project is headed over the coming semesters.</p>
+      </div>
+
+      <!--
+        EDIT: ROADMAP
+        Each <li> is one milestone. Change data-status to:
+          "planned"      (outlined node)
+          "in-progress"  (gold node)
+          "complete"     (navy node)
+        and update the status text to match. Copy a whole <li> to add more.
+      -->
+      <ol class="roadmap">
+        <li class="milestone" data-status="planned">
+          <span class="node" aria-hidden="true">1</span>
+          <span class="milestone-date"><span class="todo">Add date</span></span>
+          <h3><span class="todo">Milestone title</span></h3>
+          <p>Describe what this phase covers.</p>
+          <span class="status">Planned</span>
+        </li>
+        <li class="milestone" data-status="planned">
+          <span class="node" aria-hidden="true">2</span>
+          <span class="milestone-date"><span class="todo">Add date</span></span>
+          <h3><span class="todo">Milestone title</span></h3>
+          <p>Describe what this phase covers.</p>
+          <span class="status">Planned</span>
+        </li>
+        <li class="milestone" data-status="planned">
+          <span class="node" aria-hidden="true">3</span>
+          <span class="milestone-date"><span class="todo">Add date</span></span>
+          <h3><span class="todo">Milestone title</span></h3>
+          <p>Describe what this phase covers.</p>
+          <span class="status">Planned</span>
+        </li>
+        <li class="milestone" data-status="planned">
+          <span class="node" aria-hidden="true">4</span>
+          <span class="milestone-date"><span class="todo">Add date</span></span>
+          <h3><span class="todo">Milestone title</span></h3>
+          <p>Describe what this phase covers.</p>
+          <span class="status">Planned</span>
+        </li>
+        <li class="milestone" data-status="planned">
+          <span class="node" aria-hidden="true">5</span>
+          <span class="milestone-date"><span class="todo">Add date</span></span>
+          <h3><span class="todo">Milestone title</span></h3>
+          <p>Describe what this phase covers.</p>
+          <span class="status">Planned</span>
+        </li>
+      </ol>
+
+      <div class="plan-note">
+        <h3>Beyond senior design</h3>
+        <!-- EDIT -->
+        <p>Describe how this prototype could feed into future lunar surface construction work.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ======================= RESULTS ======================= -->
+<main data-page="results" hidden>
+  <section class="section">
+    <div class="wrap">
+      <!-- EDIT: add Results content here -->
+      <div class="empty"><p>Test data and results will be posted here as the project progresses.</p></div>
+    </div>
+  </section>
+</main>
+
+<!-- ======================= DESIGN ======================= -->
+<main data-page="design" hidden>
+  <section class="section">
+    <div class="wrap">
+      <!-- EDIT: add Design content here -->
+      <div class="empty"><p>Concepts, CAD models, and design decisions will be posted here.</p></div>
+    </div>
+  </section>
+</main>
+
+<!-- ======================= TEAM ======================= -->
+<main data-page="team" hidden>
+  <section class="section" aria-labelledby="team-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="team-title">Team 517</h2>
+        <!-- EDIT -->
+        <p>Five mechanical engineering seniors at the FAMU-FSU College of Engineering.</p>
+      </div>
+
+      <!--
+        TEAM MEMBERS
+        Photos: save each one to the path shown in that member's placeholder,
+        e.g. images/team-gabby-abate.jpg. Portrait shots (taller than wide)
+        fit the frames best. Until a photo is added, the member's initials
+        show in its place.
+        To reorder members, move a whole <li class="member"> block.
+      -->
+      <ul class="roster">
+        <li class="member">
+          <div class="portrait-frame">
+            <div class="slot">
+              <span class="initials" aria-hidden="true">GA</span>
+              <img src="images/team-gabby-abate.jpg" alt="Gabby Abate" onerror="this.parentElement.classList.add('is-empty')">
+              <span class="slot-label"><code>images/team-gabby-abate.jpg</code></span>
+            </div>
+          </div>
+          <h3>Gabby Abate</h3>
+          <p class="role">Quality Control Engineer</p>
+        </li>
+
+        <li class="member">
+          <div class="portrait-frame">
+            <div class="slot">
+              <span class="initials" aria-hidden="true">CK</span>
+              <img src="images/team-carson-kelly.jpg" alt="Carson Kelly" onerror="this.parentElement.classList.add('is-empty')">
+              <span class="slot-label"><code>images/team-carson-kelly.jpg</code></span>
+            </div>
+          </div>
+          <h3>Carson Kelly</h3>
+          <p class="role">Design Engineer</p>
+        </li>
+
+        <li class="member">
+          <div class="portrait-frame">
+            <div class="slot">
+              <span class="initials" aria-hidden="true">EP</span>
+              <img src="images/team-emilye-piperis.jpg" alt="Emilye Piperis" onerror="this.parentElement.classList.add('is-empty')">
+              <span class="slot-label"><code>images/team-emilye-piperis.jpg</code></span>
+            </div>
+          </div>
+          <h3>Emilye Piperis</h3>
+          <p class="role">Controls Engineer</p>
+        </li>
+
+        <li class="member">
+          <div class="portrait-frame">
+            <div class="slot">
+              <span class="initials" aria-hidden="true">KP</span>
+              <img src="images/team-kolton-porter.jpg" alt="Kolton Porter" onerror="this.parentElement.classList.add('is-empty')">
+              <span class="slot-label"><code>images/team-kolton-porter.jpg</code></span>
+            </div>
+          </div>
+          <h3>Kolton Porter</h3>
+          <p class="role">Materials Engineer</p>
+        </li>
+
+        <li class="member">
+          <div class="portrait-frame">
+            <div class="slot">
+              <span class="initials" aria-hidden="true">DR</span>
+              <img src="images/team-dylan-ramos.jpg" alt="Dylan Ramos" onerror="this.parentElement.classList.add('is-empty')">
+              <span class="slot-label"><code>images/team-dylan-ramos.jpg</code></span>
+            </div>
+          </div>
+          <h3>Dylan Ramos</h3>
+          <p class="role">Systems Engineer</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<!-- ======================= DOWNLOADS ======================= -->
+<main data-page="downloads" hidden>
+  <section class="section">
+    <div class="wrap">
+      <!-- EDIT: add Downloads content here -->
+      <div class="empty"><p>Reports, presentations, and project files will be available here.</p></div>
+    </div>
+  </section>
+</main>
+
+</div>
+
+<!-- ======================= FOOTER ======================= -->
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-team">Team 517</p>
+      <p class="footer-dept">Mechanical Engineering, Class of 2027</p>
+    </div>
+    <div class="footer-contact">
+      <p>Contact us</p>
+      <a href="mailto:ep22l@fsu.edu">ep22l@fsu.edu</a>
+    </div>
+  </div>
+  <div class="wrap footer-base">FAMU-FSU College of Engineering, Tallahassee, Florida</div>
+</footer>
+
+<script>
+  /* ---------- Page switching ---------- */
+  const PAGES = {
+    home:      { title: "Home",      sub: "" },
+    results:   { title: "Results",   sub: "Testing data and performance of the compaction prototype." },
+    design:    { title: "Design",    sub: "Concepts, CAD models, and the reasoning behind them." },
+    team:      { title: "Team",      sub: "The five students behind Team 517." },
+    downloads: { title: "Downloads", sub: "Reports, presentations, and project files." }
+  };
+
+  function showPage(scroll) {
+    let id = location.hash.replace("#", "") || "home";
+    if (!PAGES[id]) id = "home";
+
+    document.body.dataset.page = id;
+    document.querySelectorAll("main[data-page]").forEach(m => { m.hidden = m.dataset.page !== id; });
+    document.querySelectorAll("[data-link]").forEach(a => {
+      if (a.dataset.link === id) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+
+    const isHome = id === "home";
+    document.querySelector(".hero-home").hidden = !isHome;
+    document.querySelector(".hero-page").hidden = isHome;
+    document.getElementById("page-title").textContent = PAGES[id].title;
+    document.getElementById("page-sub").textContent = PAGES[id].sub;
+    document.title = isHome ? "Team 517 | Adaptive Regolith Compaction System" : PAGES[id].title + " | Team 517";
+
+    if (scroll) window.scrollTo({ top: 0 });
+  }
+  window.addEventListener("hashchange", () => showPage(true));
+  showPage(false);
+
+  /* ---------- Starfield ---------- */
+  function seeded(a) {
+    return function () {
+      a |= 0; a = a + 0x6D2B79F5 | 0;
+      let t = Math.imul(a ^ a >>> 15, 1 | a);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  /* ---------- Use the photo banner once the file exists ---------- */
+  (function () {
+    const probe = new Image();
+    probe.onload = () => document.querySelector(".hero").classList.add("has-photo");
+    probe.src = "images/hero-space.jpg";
+  })();
+
+  const canvas = document.getElementById("stars");
+  function drawStars() {
+    const box = canvas.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = box.width * dpr;
+    canvas.height = box.height * dpr;
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const rand = seeded(517);
+    const count = Math.round((box.width * box.height) / 1700);
+    for (let i = 0; i < count; i++) {
+      const x = rand() * box.width;
+      const y = rand() * box.height;
+      const size = rand();
+      const r = size > 0.985 ? 1.5 : size > 0.9 ? 1.0 : 0.55;
+      ctx.globalAlpha = 0.3 + rand() * 0.65;
+      ctx.fillStyle = rand() > 0.85 ? "#F3E6C4" : "#FFFFFF";
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  new ResizeObserver(drawStars).observe(document.querySelector(".hero"));
+</script>
+</body>
+</html>
