@@ -104,12 +104,14 @@
     -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(206, 184, 136, 0.2);
   }
+  /* The nav occupies the middle 60% of the bar, with the college name in the
+     left third. The bar's height comes from the pill size plus this padding. */
   .topbar-inner {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) 60% minmax(0, 1fr);
     align-items: center;
     gap: 16px;
-    padding: 12px 24px;
+    padding: 17px 28px;
   }
   .brand {
     justify-self: start;
@@ -119,7 +121,8 @@
     font-stretch: 100%;
     font-weight: 700;
     font-size: 0.95rem;
-    line-height: 1.2;
+    line-height: 1.25;
+    max-width: 22ch;
   }
   .brand:hover { color: var(--gold); }
 
@@ -127,22 +130,24 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); /* keeps Home dead-center */
     align-items: center;
-    gap: 8px;
+    gap: 14px;
   }
-  .nav-side { display: flex; gap: 8px; }
-  .nav-side--left  { justify-content: flex-end; }
-  .nav-side--right { justify-content: flex-start; }
+  /* space-between pushes the outer tabs to the edges of the 60% band and the
+     inner two up against Home, so the five spread evenly across it. */
+  .nav-side { display: flex; gap: 14px; }
+  .nav-side--left  { justify-content: space-between; }
+  .nav-side--right { justify-content: space-between; }
 
   .pill {
-    display: inline-flex; align-items: center;
-    padding: 9px 20px;
+    display: inline-flex; align-items: center; justify-content: center;
+    padding: 13px 30px;
     border-radius: 999px;
     border: 1px solid rgba(206, 184, 136, 0.38);
     background: rgba(255, 255, 255, 0.04);
     color: #E9E6DD;
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.9375rem;
+    font-size: 1.0625rem;
     line-height: 1;
     white-space: nowrap;
     transition: background-color .2s, color .2s, border-color .2s;
@@ -151,7 +156,7 @@
   .pill[aria-current="page"] {
     background: var(--gold); color: var(--space); border-color: var(--gold); font-weight: 600;
   }
-  .pill--home { padding-inline: 26px; }
+  .pill--home { padding-inline: 38px; }
 
   /* ---------------- Hero banner ---------------- */
   .hero {
@@ -215,7 +220,7 @@
   .hero-inner {
     width: 100%; margin-inline: 0;
     padding-inline: clamp(24px, 4vw, 76px) clamp(24px, 4vw, 48px);
-    min-height: calc(88vh - 64px);
+    min-height: calc(88vh - 86px);
     display: flex; flex-direction: column; justify-content: center;
     padding-block: 96px 80px;
   }
@@ -289,7 +294,10 @@
      wide, so its column gets the larger share. */
   .debrief {
     display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
-    gap: clamp(32px, 4vw, 56px); align-items: start;
+    gap: clamp(32px, 4vw, 56px);
+    /* Centres are aligned: the summary and the figure share a horizontal
+       midline rather than both starting at the top. */
+    align-items: center;
   }
   .prose p { margin: 0 0 1em; max-width: 64ch; }
   .prose p:last-child { margin-bottom: 0; }
@@ -343,6 +351,7 @@
   }
   .figure--wide .frame .slot img { object-fit: contain; }
   .figure--wide .zoom { display: block; text-decoration: none; cursor: zoom-in; }
+  .debrief .figure--wide { margin-top: 26px; }
   .figure--wide figcaption { display: grid; gap: 8px; justify-items: start; }
   .figure--wide figcaption a {
     color: var(--garnet); font-weight: 600; text-decoration: none;
@@ -563,9 +572,15 @@
 
   /* ---------------- Responsive ---------------- */
   @media (max-width: 960px) {
-    .topbar-inner { grid-template-columns: 1fr; justify-items: center; gap: 10px; padding: 10px 12px; }
-    .brand { justify-self: center; }
-    .nav { width: 100%; overflow-x: auto; scrollbar-width: none; }
+    .topbar-inner { grid-template-columns: 1fr; justify-items: center; gap: 10px; padding: 12px; }
+    .brand { justify-self: center; max-width: none; }
+    .nav { width: 100%; overflow-x: auto; scrollbar-width: none; gap: 8px; }
+    .nav-side { gap: 8px; }
+    .nav-side--left  { justify-content: flex-end; }
+    .nav-side--right { justify-content: flex-start; }
+    .pill { padding: 11px 20px; font-size: 0.9375rem; }
+    .pill--home { padding-inline: 24px; }
+    .debrief .figure--wide { margin-top: 0; }
     .debrief, .sponsors { grid-template-columns: 1fr; }
     .moon { right: -18vw; width: 80vw; opacity: .55; top: 38%; }
     body:not([data-page="home"]) .moon { width: 60vw; right: -12vw; }
